@@ -5,7 +5,7 @@ const {GET_USERS, CREATE_USER, DELETE_USER, LOGIN, VERIFY,
 
 // VPN
 async function getVPNS() {
-    const res = fetchWithRefresh(GET_VPNS);
+    const res = await fetchWithRefresh(GET_VPNS);
     return await res.json();
 }
 
@@ -52,7 +52,7 @@ async function deleteUser(id) {
 }
 
 async function verifyToken() {
-    return await fetchWithRefresh(VERIFY, {
+    return await fetch(VERIFY, {
         credentials: 'include',
     });
 }
@@ -65,7 +65,7 @@ async function fetchWithRefresh(url, options = {}) {
             credentials: 'include'
         });
         if (!refreshRes.ok) {
-            window.location.href = '/admin';
+            window.location.href = '/';
             return;
         }
         res = await fetch(url, { ...options, credentials: 'include' });

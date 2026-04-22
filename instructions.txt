@@ -1,0 +1,18 @@
+Prerequisites:
+https://openvpn.net/client-connect-vpn-for-windows/ - OpenVPN Connect (VPN Client)
+
+
+Important:
+You will be given two files <name>.ovpn, and <name>-1.ovpn it’s important these files are NEVER shared to anyone but yourself.
+The <name>.ovpn may not work for some people, if this happens proceed to use the <name>-1.ovpn.
+You MUST NOT join any servers whilst connected to the VPN unless it’s the server you are working on.
+
+Steps:
+1. Go to the OpenVPN Link provided, and download your specific OS version.
+2. After successfully downloading, run OpenVPN.
+3. Download the profile(s) sent to you, starting the <name>.ovpn.
+4. Drag/Import the profile(s) into the OpenVPN Client.
+5. Turn on the profile.
+6. Wait 10-20 seconds* and then attempt to load the relevant panel link.
+
+Panel Link: ravenstone.azurax.net

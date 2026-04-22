@@ -35,10 +35,10 @@ const theme = createTheme({
           fontFamily: "'Alatsi', sans-serif",
           fontWeight: 'bold',
           boxShadow: 'inset 0px 0px 4px rgb(255, 255, 255)',
-          border: '1px inset rgb(237,65,65)',
-          background: 'rgba(213,54,54,0.85)',
+          border: '1px inset rgb(54,62,213)',
+          background: 'rgba(54,67,213,0.85)',
           '&:hover': {
-            background: 'rgba(213,54,54,1)',
+            background: 'rgb(54,62,213)',
           },
         }
       },

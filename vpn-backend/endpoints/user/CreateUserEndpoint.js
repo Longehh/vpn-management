@@ -1,7 +1,7 @@
 import {app, authenticateToken, requirePermission} from "../../backend.js";
 import bcrypt from "bcryptjs";
 
-app.post('/api/auth/create-user', authenticateToken, requirePermission('can_create_users'), (req, res) => {
+app.post('/auth/create-user', authenticateToken, requirePermission('can_create_users'), (req, res) => {
     const { username, password, permissions } = req.body;
     if (!username || !password) return res.status(400).json({ error: 'Username and password required' });
     if (password.length < 6) return res.status(400).json({ error: 'Password must be at least 6 characters' });

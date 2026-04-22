@@ -32,14 +32,14 @@ function AdminPanelContent({permissions, currentUser, onLogout}) {
                         color: '#fff',
                         textDecoration: 'none',
                         '& span': {
-                            background: 'linear-gradient(90deg, #e62727, #5c0303)',
+                            background: 'linear-gradient(90deg, #2770e6, #06285e)',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
                             backgroundClip: 'text',
                         },
                     }}
                 >
-                    MAGIC <span>MAYHEM</span>
+                    Azura<span>X</span>
                 </Typography>
                 <Box sx={{display: 'flex', alignItems: 'center', gap: 2}}>
                     <Typography
@@ -71,14 +71,14 @@ function AdminPanelContent({permissions, currentUser, onLogout}) {
                             fontSize: '0.8rem'
                         },
                         '& .Mui-selected': {color: '#fff !important'},
-                        '& .MuiTabs-indicator': {backgroundColor: 'rgb(213,54,54)'},
+                        '& .MuiTabs-indicator': {backgroundColor: 'rgb(54,118,213)'},
                     }}
                 >
                     <Tab label="VPN"/>
                     {permissions.can_create_users && <Tab label="Users"/>}
                 </Tabs>
 
-                {tab === 0 && <VPNTab />}
+                {tab === 0 && <VPNTab permissions={permissions} />}
                 {tab === 1 && permissions.can_create_users && <UsersTab currentUserId={currentUser?.id}/>}
             </Box>
         </Box>
@@ -114,7 +114,7 @@ export default function AdminPanel() {
                 alignItems: 'center',
                 justifyContent: 'center'
             }}>
-                <CircularProgress sx={{color: '#d53636'}}/>
+                <CircularProgress sx={{color: '#3643d5'}}/>
             </Box>
         );
     }

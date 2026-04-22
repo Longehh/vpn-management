@@ -1,7 +1,7 @@
-import {app} from "../../backend.js";
+import {app, authenticateToken} from "../../backend.js";
 import {execSync} from "child_process";
 
-app.get('/api/vpn/list', (req, res) => {
+app.get('/vpn/list', authenticateToken, (req, res) => {
     try {
         const output = execSync(
             `tail -n +2 /etc/openvpn/easy-rsa/pki/index.txt | grep "^V"`

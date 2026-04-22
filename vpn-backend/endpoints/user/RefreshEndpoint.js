@@ -1,7 +1,7 @@
 import rateLimit from "express-rate-limit";
 import {app} from "../../backend.js";
 import jwt from "jsonwebtoken";
-app.post('/api/auth/refresh', (req, res) => {
+app.post('/auth/refresh', (req, res) => {
     const token = req.cookies.refresh_token;
     console.log(token);
     if (!token) return res.status(401).json({ error: 'No refresh token' });

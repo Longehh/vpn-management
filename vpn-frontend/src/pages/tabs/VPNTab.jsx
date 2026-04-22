@@ -17,6 +17,7 @@ import {
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import DeleteIcon from "@mui/icons-material/Delete";
+import {DOWNLOAD_VPN} from "../../api/APIConstants";
 
 const inputSx = {
     '& .MuiOutlinedInput-root': {
@@ -39,13 +40,13 @@ const inputSx = {
 };
 
 const redBtnSx = {
-    background: 'rgba(213,54,54,0.85)', borderRadius: '1px',
+    background: 'rgba(54,118,213,0.85)', borderRadius: '1px',
     fontFamily: "'Alatsi', sans-serif", fontWeight: 'bold',
-    border: '1px solid rgb(237,65,65)',
-    '&:hover': {background: 'rgba(213,54,54,1)'},
+    border: '1px solid rgb(54,118,213)',
+    '&:hover': {background: 'rgba(54,118,213,1)'},
 };
 
-export default function VPNTab() {
+export default function VPNTab({permissions}) {
     const [vpns, setVPNS] = useState([]);
     const [client, setClient] = useState('');
     const [success, setSuccess] = useState('');
@@ -75,6 +76,8 @@ export default function VPNTab() {
             const data = await res.json();
             if (!res.ok) throw new Error(data.error || 'Failed to create user');
             setSuccess(`User "${client}" created successfully!`);
+
+            window.location.href = `${DOWNLOAD_VPN}${client}`;
             setClient('');
             fetchVPNS();
         } catch (err) {
@@ -105,7 +108,7 @@ export default function VPNTab() {
                 mb: 2,
                 letterSpacing: '0.1em'
             }}>
-                CREATE NEW USER
+                CREATE NEW VPN
             </Typography>
             <Card sx={{background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', mb: 4}}>
                 <CardContent sx={{p: 3}}>
@@ -135,7 +138,7 @@ export default function VPNTab() {
                 </CardContent>
             </Card>
 
-            {/* User List */}
+            {/* VPN List */}
             <Typography sx={{
                 color: 'rgba(255,255,255,0.4)',
                 fontFamily: "'Alatsi', sans-serif",

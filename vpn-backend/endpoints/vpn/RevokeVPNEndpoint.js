@@ -1,9 +1,9 @@
-import {app} from "../../backend.js";
+import {app, authenticateToken} from "../../backend.js";
 import { execSync } from "child_process"
 
-app.delete('/api/vpn/revoke/:client', (req, res) => {
+app.delete('/vpn/revoke/:client', authenticateToken,(req, res) => {
     try {
-        const clientNumber = parseInt(req.params);
+        const clientNumber = parseInt(req.params.client);
         if (!clientNumber || clientNumber < 1) {
             return res.status(400).json({ error: 'Invalid client ID' });
         }
@@ -28,6 +28,8 @@ app.delete('/api/vpn/revoke/:client', (req, res) => {
 `, { shell: '/bin/bash' });
         res.json({ message: `Certificate for client ${client} revoked.` });
     } catch (error) {
+        console.error('Revoke error:', error.message);
+        console.error('stderr:', error.stderr?.toString());
         res.status(500).json({ error: 'Failed to revoke client' });
     }
 });

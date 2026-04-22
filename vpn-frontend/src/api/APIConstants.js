@@ -1,11 +1,11 @@
-//const BASE_URL = "https://api.magicmayhem.co.uk/api/"
-const BASE_URL = "https://vpn.azurax.net/api/"
+const BASE_URL = "https://limitless-vpn.azurax.net/api/"
 
 //VPN
 const VPN = BASE_URL + "vpn/"
 const GET_VPNS = VPN + "list"
 const CREATE_VPN = VPN + "create"
 const DELETE_VPN = VPN + "revoke/"
+const DOWNLOAD_VPN = VPN + "download/"
 // Authentication
 const AUTH = BASE_URL + "auth/"
 const LOGOUT= AUTH + "logout"
@@ -27,7 +27,8 @@ module.exports = {
     REFRESH,
     GET_VPNS,
     CREATE_VPN,
-    DELETE_VPN
+    DELETE_VPN,
+    DOWNLOAD_VPN
 }
 
 

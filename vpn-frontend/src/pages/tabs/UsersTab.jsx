@@ -39,10 +39,10 @@ const inputSx = {
 };
 
 const redBtnSx = {
-    background: 'rgba(213,54,54,0.85)', borderRadius: '1px',
+    background: 'rgba(54,118,213,0.85)', borderRadius: '1px',
     fontFamily: "'Alatsi', sans-serif", fontWeight: 'bold',
-    border: '1px solid rgb(237,65,65)',
-    '&:hover': {background: 'rgba(213,54,54,1)'},
+    border: '1px solid rgb(54,118,213)',
+    '&:hover': {background: 'rgba(54,118,213,1)'},
 };
 
 export default function UsersTab({currentUserId}) {
@@ -50,7 +50,7 @@ export default function UsersTab({currentUserId}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [perms, setPerms] = useState({
-        can_upload: false,
+        can_modify_vpn: false,
         can_delete: false,
         can_create_users: false,
         can_view_admin: true,
@@ -84,7 +84,7 @@ export default function UsersTab({currentUserId}) {
             setSuccess(`User "${username}" created successfully!`);
             setUsername('');
             setPassword('');
-            setPerms({can_upload: false, can_delete: false, can_create_users: false, can_view_admin: true});
+            setPerms({can_modify_vpn: false, can_delete: false, can_create_users: false, can_view_admin: true});
             fetchUsers();
         } catch (err) {
             setError(err.message);
@@ -105,7 +105,7 @@ export default function UsersTab({currentUserId}) {
     }
 
     const permLabels = {
-        can_upload: 'Upload Images',
+        can_modify_vpn: 'Modify VPN',
         can_delete: 'Delete Images',
         can_create_users: 'Create Users',
         can_view_admin: 'View Admin Panel',
@@ -159,7 +159,7 @@ export default function UsersTab({currentUserId}) {
                                                     disabled={key === 'can_view_admin'}
                                                     sx={{
                                                         color: 'rgba(255,255,255,0.3)',
-                                                        '&.Mui-checked': {color: 'rgb(213,54,54)'},
+                                                        '&.Mui-checked': {color: 'rgb(54,110,213)'},
                                                     }}
                                                 />
                                             }
@@ -174,7 +174,7 @@ export default function UsersTab({currentUserId}) {
                             </Grid>
                             <Grid item xs={12}>
                                 {error && <Typography
-                                    sx={{color: '#d53636', fontSize: '0.85rem', mb: 1}}>{error}</Typography>}
+                                    sx={{color: '#3656d5', fontSize: '0.85rem', mb: 1}}>{error}</Typography>}
                                 {success && (
                                     <Box sx={{display: 'flex', alignItems: 'center', gap: 1, mb: 1, color: '#4caf50'}}>
                                         <CheckCircleIcon fontSize="small"/>
@@ -223,8 +223,8 @@ export default function UsersTab({currentUserId}) {
                                         ml: 1,
                                         height: 18,
                                         fontSize: '0.65rem',
-                                        backgroundColor: 'rgba(213,54,54,0.3)',
-                                        color: '#d53636'
+                                        backgroundColor: 'rgba(54,75,213,0.3)',
+                                        color: '#364bd5'
                                     }}/>
                                 )}
                             </Typography>
@@ -243,8 +243,8 @@ export default function UsersTab({currentUserId}) {
                         {user.id !== currentUserId && (
                             <IconButton onClick={() => handleDeleteUser(user.id)}
                                         sx={{
-                                            color: '#d53636',
-                                            '&:hover': {backgroundColor: 'rgba(213,54,54,0.1)'},
+                                            color: '#3680d5',
+                                            '&:hover': {backgroundColor: 'rgba(54,91,213,0.1)'},
                                             p: 0.5
                                         }}>
                                 <DeleteIcon fontSize="small"/>

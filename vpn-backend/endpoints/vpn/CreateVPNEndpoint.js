@@ -1,7 +1,7 @@
-import {app} from "../../backend.js";
+import {app, authenticateToken} from "../../backend.js";
 import { execSync } from "child_process"
 
-app.post("/api/vpn/create", (req, res) => {
+app.post("/vpn/create", authenticateToken, (req, res) => {
     try {
         const { client, pass = 1 } = req.body;
         if (!client) {

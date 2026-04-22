@@ -1,6 +1,6 @@
 import {app, authenticateToken} from "../../backend.js";
 
-app.get('/api/auth/verify', authenticateToken, (req, res) => {
+app.get('/auth/verify', authenticateToken, (req, res) => {
     const user = app.db.prepare('SELECT * FROM users WHERE id = ?').get(req.user.id);
     if (!user) return res.status(401).json({ error: 'User not found' });
 

@@ -26,10 +26,10 @@ const inputSx = {
 };
 
 const redBtnSx = {
-    background: 'rgba(213,54,54,0.85)', borderRadius: '1px',
+    background: 'rgba(54,118,213,0.85)', borderRadius: '1px',
     fontFamily: "'Alatsi', sans-serif", fontWeight: 'bold',
-    border: '1px solid rgb(237,65,65)',
-    '&:hover': {background: 'rgba(213,54,54,1)'},
+    border: '1px solid rgb(54,118,213)',
+    '&:hover': {background: 'rgba(54,118,213,1)'},
 };
 
 export default function LoginPage({onLogin}) {
@@ -68,7 +68,7 @@ export default function LoginPage({onLogin}) {
                 <CardContent sx={{p: {xs: 3, sm: 5}}}>
                     <Typography variant="h5"
                                 sx={{fontFamily: "'Alatsi', sans-serif", color: '#fff', textAlign: 'center', mb: 1, '& span': {
-                                        background: 'linear-gradient(90deg, #e62727, #5c0303)',
+                                        background: 'linear-gradient(90deg, #2770e6, #06285e)',
                                         WebkitBackgroundClip: 'text',
                                         WebkitTextFillColor: 'transparent',
                                         backgroundClip: 'text',
@@ -84,7 +84,7 @@ export default function LoginPage({onLogin}) {
                         <TextField fullWidth label="Password" type="password" value={password}
                                    onChange={e => setPassword(e.target.value)} sx={{...inputSx, mb: 3}} required/>
                         {error && (
-                            <Typography sx={{color: '#d53636', fontSize: '0.85rem', mb: 2, textAlign: 'center'}}>
+                            <Typography sx={{color: '#3643d5', fontSize: '0.85rem', mb: 2, textAlign: 'center'}}>
                                 {error}
                             </Typography>
                         )}

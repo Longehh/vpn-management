@@ -9,7 +9,7 @@ import dotenv from 'dotenv';
 import bcrypt from "bcryptjs";
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors({ origin: "https://localhost:3000", credentials: true }));
+app.use(cors({ origin: "https://limitless-vpn.azurax.net", credentials: true }));
 dotenv.config();
 
 const db = new Database('admin.db');
@@ -25,9 +25,6 @@ db.exec(`
         can_view_admin INTEGER NOT NULL DEFAULT 1
     )
 `);
-
-
-
 
 // Migrate existing table if permissions columns are missing
 const cols = db.prepare("PRAGMA table_info(users)").all().map(c => c.name);
@@ -47,7 +44,7 @@ db.prepare(`
         INSERT INTO users (username, password, can_modify_vpn, can_delete, can_create_users, can_view_admin)
         VALUES (?, ?, ?, ?, ?, ?)
     `).run(
-    "Longeh", hashed,
+    "Admin", hashed,
     1,
     1,
     1,

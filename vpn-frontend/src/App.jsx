@@ -9,7 +9,7 @@ function AppContent() {
     return (
         <Container component="main" maxWidth={false} disableGutters>
             <Routes>
-                <Route path="/" element={<LoginPage/>}/>
+                <Route path="/" element={<AdminPanel/>}/>
             </Routes>
         </Container>
     );

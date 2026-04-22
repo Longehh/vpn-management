@@ -11,7 +11,7 @@ const loginLimiter = rateLimit({
 });
 
 
-app.post('/api/auth/login', [loginLimiter], (req, res) => {
+app.post('/auth/login', [loginLimiter], (req, res) => {
     const { username, password } = req.body;
     if (!username || !password) return res.status(400).json({ error: 'Username and password required' });
 
@@ -39,12 +39,12 @@ app.post('/api/auth/login', [loginLimiter], (req, res) => {
     const accessToken = jwt.sign(
         { id: user.id, username: user.username, permissions },
         process.env.JWT_SECRET_KEY,
-        { expiresIn: '15m' } // shorter lived now
+        { expiresIn: '15m' }
     );
 
     const refreshToken = jwt.sign(
         { id: user.id },
-        process.env.JWT_REFRESH_SECRET_KEY, // separate secret!
+        process.env.JWT_REFRESH_SECRET_KEY,
         { expiresIn: '7d' }
     );
 
