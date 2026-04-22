@@ -1,4 +1,4 @@
-const BASE_URL = "https://limitless-vpn.azurax.net/api/"
+const BASE_URL = "https://sparked-vpn.azurax.net/api/"
 
 //VPN
 const VPN = BASE_URL + "vpn/"
@@ -6,6 +6,9 @@ const GET_VPNS = VPN + "list"
 const CREATE_VPN = VPN + "create"
 const DELETE_VPN = VPN + "revoke/"
 const DOWNLOAD_VPN = VPN + "download/"
+
+// Copy
+const COPY = BASE_URL + "copy"
 // Authentication
 const AUTH = BASE_URL + "auth/"
 const LOGOUT= AUTH + "logout"
@@ -28,7 +31,8 @@ module.exports = {
     GET_VPNS,
     CREATE_VPN,
     DELETE_VPN,
-    DOWNLOAD_VPN
+    DOWNLOAD_VPN,
+    COPY
 }
 
 

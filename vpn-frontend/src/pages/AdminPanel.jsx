@@ -6,6 +6,7 @@ import LoginPage from "./LoginPage";
 import UsersTab from "./tabs/UsersTab";
 import {Link} from "react-router-dom";
 import VPNTab from "./tabs/VPNTab";
+import CopyTab from "./tabs/CopyTab";
 
 // ── Main Panel ────────────────────────────────────────────────────
 function AdminPanelContent({permissions, currentUser, onLogout}) {
@@ -75,11 +76,13 @@ function AdminPanelContent({permissions, currentUser, onLogout}) {
                     }}
                 >
                     <Tab label="VPN"/>
+                    {permissions.can_view_admin && <Tab label="Copy"/>}
                     {permissions.can_create_users && <Tab label="Users"/>}
                 </Tabs>
 
                 {tab === 0 && <VPNTab permissions={permissions} />}
-                {tab === 1 && permissions.can_create_users && <UsersTab currentUserId={currentUser?.id}/>}
+                {tab === 1 && <CopyTab permissions={permissions} />}
+                {tab === 2 && permissions.can_create_users && <UsersTab currentUserId={currentUser?.id}/>}
             </Box>
         </Box>
     );

@@ -1,5 +1,5 @@
 const {GET_USERS, CREATE_USER, DELETE_USER, LOGIN, VERIFY,
-    REFRESH, LOGOUT, GET_VPNS, DELETE_VPN, CREATE_VPN
+    REFRESH, LOGOUT, GET_VPNS, DELETE_VPN, CREATE_VPN, COPY
 } = require("./APIConstants");
 
 
@@ -21,6 +21,15 @@ async function deleteVPN(id) {
     return await fetchWithRefresh(`${DELETE_VPN}${id}`, {
         method: 'DELETE',
     });
+}
+
+// COPY
+async function copy(copyFile, copyFileInstance, copyInstance) {
+    return await fetchWithRefresh(COPY, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({copyFile, copyFileInstance, copyInstance})
+    })
 }
 
 async function login(username, password) {
@@ -82,5 +91,5 @@ async function logout() {
 }
 
 module.exports = {
-    getUsers, login, verifyToken, createUser, deleteUser, logout, getVPNS, createVPN, deleteVPN
+    getUsers, login, verifyToken, createUser, deleteUser, logout, getVPNS, createVPN, deleteVPN, copy
 }
