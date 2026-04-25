@@ -24,8 +24,8 @@ app.post('/auth/login', [loginLimiter], (req, res) => {
     if (!user.can_view_admin) return res.status(403).json({ error: 'Access denied' });
 
     const permissions = {
-        can_modify_vpn: !!user.can_modify_vpn,
-        can_delete: !!user.can_delete,
+        can_manage_vpn: !!user.can_manage_vpn,
+        can_manage_file: !!user.can_manage_file,
         can_create_users: !!user.can_create_users,
         can_view_admin: !!user.can_view_admin,
     };

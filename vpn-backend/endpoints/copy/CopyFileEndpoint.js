@@ -1,7 +1,7 @@
 import {app, authenticateToken} from "../../backend.js";
 import fs from "fs";
 
-app.post('/copy', async (req, res) => {
+app.post('/copy', authenticateToken, async (req, res) => {
     const {copyFile, copyFileInstance, copyInstance} = req.body;
 
     if(!copyFile.endsWith(".zip") && !copyFile.endsWith(".tar.gz")) {

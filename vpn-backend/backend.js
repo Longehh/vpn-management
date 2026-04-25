@@ -9,7 +9,7 @@ import dotenv from 'dotenv';
 import bcrypt from "bcryptjs";
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors({ origin: "https://limitless-vpn.azurax.net", credentials: true }));
+app.use(cors({ origin: "https://osmc-vpn.azurax.net", credentials: true }));
 dotenv.config();
 
 const db = new Database('admin.db');
@@ -28,28 +28,23 @@ db.exec(`
 
 // Migrate existing table if permissions columns are missing
 const cols = db.prepare("PRAGMA table_info(users)").all().map(c => c.name);
-if (!cols.includes('can_modify_vpn')) {
-    db.exec(`ALTER TABLE users ADD COLUMN can_modify_vpn INTEGER NOT NULL DEFAULT 0`);
-    db.exec(`ALTER TABLE users ADD COLUMN can_delete INTEGER NOT NULL DEFAULT 0`);
+if (cols.includes('can_delete')) {
+    db.exec(`ALTER TABLE users RENAME COLUMN can_delete TO can_manage_file`);
+}
+
+if (cols.includes('can_modify_vpn')) {
+    db.exec(`ALTER TABLE users RENAME COLUMN can_modify_vpn TO can_manage_vpn`);
+}
+if (!cols.includes('can_manage_file') && !cols.includes('can_delete')) {
+    db.exec(`ALTER TABLE users ADD COLUMN can_manage_vpn INTEGER NOT NULL DEFAULT 0`);
+    db.exec(`ALTER TABLE users ADD COLUMN can_manage_file INTEGER NOT NULL DEFAULT 0`);
     db.exec(`ALTER TABLE users ADD COLUMN can_create_users INTEGER NOT NULL DEFAULT 0`);
     db.exec(`ALTER TABLE users ADD COLUMN can_view_admin INTEGER NOT NULL DEFAULT 1`);
+
     // Give existing admin user all permissions
     db.exec(`UPDATE users SET can_modify_vpn=1, can_delete=1, can_create_users=1, can_view_admin=1 WHERE username='admin'`);
     console.log('Migrated users table with permission columns');
 }
-
-const hashed = bcrypt.hashSync("password", 10);
-
-db.prepare(`
-        INSERT INTO users (username, password, can_modify_vpn, can_delete, can_create_users, can_view_admin)
-        VALUES (?, ?, ?, ?, ?, ?)
-    `).run(
-    "Admin", hashed,
-    1,
-    1,
-    1,
-    1,
-);
 
 const JWT_SECRET = process.env.JWT_SECRET_KEY || 'change_this_secret_in_production';
 

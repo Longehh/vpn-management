@@ -50,8 +50,8 @@ export default function UsersTab({currentUserId}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [perms, setPerms] = useState({
-        can_modify_vpn: false,
-        can_delete: false,
+        can_manage_vpn: false,
+        can_manage_file: false,
         can_create_users: false,
         can_view_admin: true,
     });
@@ -84,7 +84,7 @@ export default function UsersTab({currentUserId}) {
             setSuccess(`User "${username}" created successfully!`);
             setUsername('');
             setPassword('');
-            setPerms({can_modify_vpn: false, can_delete: false, can_create_users: false, can_view_admin: true});
+            setPerms({can_manage_vpn: false, can_manage_file: false, can_create_users: false, can_view_admin: true});
             fetchUsers();
         } catch (err) {
             setError(err.message);
@@ -105,8 +105,8 @@ export default function UsersTab({currentUserId}) {
     }
 
     const permLabels = {
-        can_modify_vpn: 'Modify VPN',
-        can_delete: 'Delete Images',
+        can_manage_vpn: 'VPN Management',
+        can_manage_file: 'File Management',
         can_create_users: 'Create Users',
         can_view_admin: 'View Admin Panel',
     };

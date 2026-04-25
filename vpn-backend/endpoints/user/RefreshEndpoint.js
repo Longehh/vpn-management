@@ -3,7 +3,6 @@ import {app} from "../../backend.js";
 import jwt from "jsonwebtoken";
 app.post('/auth/refresh', (req, res) => {
     const token = req.cookies.refresh_token;
-    console.log(token);
     if (!token) return res.status(401).json({ error: 'No refresh token' });
 
     jwt.verify(token, process.env.JWT_REFRESH_SECRET_KEY, (err, decoded) => {
@@ -14,8 +13,8 @@ app.post('/auth/refresh', (req, res) => {
         if (!user) return res.status(403).json({ error: 'User not found' });
 
         const permissions = {
-            can_modify_vpn: !!user.can_modify_vpn,
-            can_delete: !!user.can_delete,
+            can_manage_vpn: !!user.can_manage_vpn,
+            can_manage_file: !!user.can_manage_file,
             can_create_users: !!user.can_create_users,
             can_view_admin: !!user.can_view_admin,
         };

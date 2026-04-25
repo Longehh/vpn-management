@@ -7,82 +7,37 @@ import UsersTab from "./tabs/UsersTab";
 import {Link} from "react-router-dom";
 import VPNTab from "./tabs/VPNTab";
 import CopyTab from "./tabs/CopyTab";
+import SideBar from "../components/SideBar";
+import HomeTab from "./tabs/HomeTab";
 
 // ── Main Panel ────────────────────────────────────────────────────
 function AdminPanelContent({permissions, currentUser, onLogout}) {
     const [tab, setTab] = useState(0);
-
+    const getTabContent = () => {
+        if(tab === 0) return <HomeTab />
+        if (tab === 1 && permissions.can_manage_vpn) return <VPNTab permissions={permissions} />;
+        if (tab === 2 && permissions.can_manage_file) return <CopyTab permissions={permissions} />;
+        if (tab === 3 && permissions.can_create_users) return <UsersTab currentUserId={currentUser?.id} />;
+        return null;
+    };
     return (
-        <Box sx={{minHeight: '100vh', backgroundColor: '#111', p: {xs: 2, sm: 4}}}>
-            {/* Header */}
-            <Box sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                mb: 3,
-                maxWidth: 900,
-                mx: 'auto'
-            }}>
-                <Typography
-                    component={Link}
-                    to="/"
-                    sx={{
-                        fontFamily: "'Alatsi', sans-serif",
-                        fontSize: '1.25rem',
-                        letterSpacing: '0.12em',
-                        color: '#fff',
-                        textDecoration: 'none',
-                        '& span': {
-                            background: 'linear-gradient(90deg, #2770e6, #06285e)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            backgroundClip: 'text',
-                        },
-                    }}
-                >
-                    Azura<span>X</span>
-                </Typography>
-                <Box sx={{display: 'flex', alignItems: 'center', gap: 2}}>
-                    <Typography
-                        sx={{color: 'rgba(255,255,255,0.3)', fontSize: '0.8rem', fontFamily: "'Alatsi', sans-serif"}}>
-                        {currentUser?.username}
-                    </Typography>
-                    <Button onClick={onLogout} startIcon={<LogoutIcon/>}
-                            sx={{
-                                color: 'rgba(255,255,255,0.5)',
-                                '&:hover': {color: '#fff'},
-                                fontFamily: "'Alatsi', sans-serif"
-                            }}>
-                        Logout
-                    </Button>
-                </Box>
-            </Box>
+        <Box sx={{ display: 'flex', minHeight: '100vh', backgroundColor: '#111' }}>
+            <SideBar
+                currentUser={currentUser}
+                activeTab={tab}
+                onTabChange={setTab}
+                permissions={permissions}
+                onLogout={onLogout}
+            />
 
-            {/* Tabs */}
-            <Box sx={{maxWidth: 900, mx: 'auto'}}>
-                <Tabs
-                    value={tab}
-                    onChange={(_, v) => setTab(v)}
-                    sx={{
-                        mb: 3,
-                        borderBottom: '1px solid rgba(255,255,255,0.08)',
-                        '& .MuiTab-root': {
-                            color: 'rgba(255,255,255,0.4)',
-                            fontFamily: "'Alatsi', sans-serif",
-                            fontSize: '0.8rem'
-                        },
-                        '& .Mui-selected': {color: '#fff !important'},
-                        '& .MuiTabs-indicator': {backgroundColor: 'rgb(54,118,213)'},
-                    }}
-                >
-                    <Tab label="VPN"/>
-                    {permissions.can_view_admin && <Tab label="Copy"/>}
-                    {permissions.can_create_users && <Tab label="Users"/>}
-                </Tabs>
-
-                {tab === 0 && <VPNTab permissions={permissions} />}
-                {tab === 1 && <CopyTab permissions={permissions} />}
-                {tab === 2 && permissions.can_create_users && <UsersTab currentUserId={currentUser?.id}/>}
+            <Box
+                sx={{
+                    flex: 1,
+                    p: { xs: 3, sm: 5 },
+                    overflowY: 'auto',
+                }}
+            >
+                {getTabContent()}
             </Box>
         </Box>
     );
@@ -96,16 +51,24 @@ export default function AdminPanel() {
     const [currentUser, setCurrentUser] = useState(null);
 
     useEffect(() => {
-        verifyToken()
-            .then(res => res.ok ? res.json() : Promise.reject())
-            .then(data => {
-                console.log(data);
-                setAuthenticated(true);
-                setPermissions(data.permissions);
-                setCurrentUser(data.user);
-            })
-            .catch(() => setAuthenticated(false))
-            .finally(() => setChecking(false));
+        const verify = async () => {
+            try {
+                const res = await verifyToken();
+                if (res && res.ok) {
+                    const data = await res.json();
+                    setAuthenticated(true);
+                    setPermissions(data.permissions);
+                    setCurrentUser(data.user);
+                } else {
+                    setAuthenticated(false);
+                }
+            } catch (err) {
+                setAuthenticated(false);
+            } finally {
+                setChecking(false);
+            }
+        };
+        verify();
     }, []);
 
     if (checking) {

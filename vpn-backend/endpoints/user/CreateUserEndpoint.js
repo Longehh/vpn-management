@@ -11,12 +11,12 @@ app.post('/auth/create-user', authenticateToken, requirePermission('can_create_u
 
     const hashed = bcrypt.hashSync(password, 10);
     app.db.prepare(`
-        INSERT INTO users (username, password, can_modify_vpn, can_delete, can_create_users, can_view_admin)
+        INSERT INTO users (username, password, can_manage_vpn, can_manage_file, can_create_users, can_view_admin)
         VALUES (?, ?, ?, ?, ?, ?)
     `).run(
         username, hashed,
-        permissions.can_modify_vpn ? 1 : 0,
-        permissions.can_delete ? 1 : 0,
+        permissions.can_manage_vpn ? 1 : 0,
+        permissions.can_manage_file ? 1 : 0,
         permissions.can_create_users ? 1 : 0,
         permissions.can_view_admin ? 1 : 0,
     );

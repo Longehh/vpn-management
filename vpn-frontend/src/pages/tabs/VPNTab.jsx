@@ -62,7 +62,7 @@ export default function VPNTab({permissions}) {
             const res = await getVPNS();
             setVPNS(res.clients || []);
         } catch {
-            setError('Failed to load users');
+            setError('Failed to load VPNS');
         }
     }
 
@@ -114,7 +114,7 @@ export default function VPNTab({permissions}) {
                 <CardContent sx={{p: 3}}>
                     <Box component="form" onSubmit={handleCreateVPN}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} sm={12}>
                                 <TextField fullWidth label="Client" value={client}
                                            onChange={e => setClient(e.target.value)}
                                            sx={inputSx} required/>

@@ -1,8 +1,13 @@
 const {GET_USERS, CREATE_USER, DELETE_USER, LOGIN, VERIFY,
-    REFRESH, LOGOUT, GET_VPNS, DELETE_VPN, CREATE_VPN, COPY
+    REFRESH, LOGOUT, GET_VPNS, DELETE_VPN, CREATE_VPN, COPY, GET_STATS
 } = require("./APIConstants");
 
+// Stats
 
+async function getStats() {
+    const res = await fetchWithRefresh(GET_STATS);
+    return await res.json();
+}
 // VPN
 async function getVPNS() {
     const res = await fetchWithRefresh(GET_VPNS);
@@ -61,7 +66,7 @@ async function deleteUser(id) {
 }
 
 async function verifyToken() {
-    return await fetch(VERIFY, {
+    return await fetchWithRefresh(VERIFY, {
         credentials: 'include',
     });
 }
@@ -74,8 +79,7 @@ async function fetchWithRefresh(url, options = {}) {
             credentials: 'include'
         });
         if (!refreshRes.ok) {
-            window.location.href = '/';
-            return;
+            return refreshRes;
         }
         res = await fetch(url, { ...options, credentials: 'include' });
     }
@@ -91,5 +95,5 @@ async function logout() {
 }
 
 module.exports = {
-    getUsers, login, verifyToken, createUser, deleteUser, logout, getVPNS, createVPN, deleteVPN, copy
+    getUsers, login, verifyToken, createUser, deleteUser, logout, getVPNS, createVPN, deleteVPN, copy, getStats
 }

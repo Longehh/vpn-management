@@ -80,7 +80,7 @@ export default function CopyTab({permissions}) {
                 mb: 2,
                 letterSpacing: '0.1em'
             }}>
-                COPY FILE
+                FILE MANAGEMENT
             </Typography>
             <Card sx={{background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', mb: 4}}>
                 <CardContent sx={{p: 3}}>

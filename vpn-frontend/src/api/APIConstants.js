@@ -1,4 +1,4 @@
-const BASE_URL = "https://sparked-vpn.azurax.net/api/"
+const BASE_URL = "https://osmc-vpn.azurax.net/api/"
 
 //VPN
 const VPN = BASE_URL + "vpn/"
@@ -6,6 +6,9 @@ const GET_VPNS = VPN + "list"
 const CREATE_VPN = VPN + "create"
 const DELETE_VPN = VPN + "revoke/"
 const DOWNLOAD_VPN = VPN + "download/"
+
+// Stats
+const GET_STATS = BASE_URL + "stats"
 
 // Copy
 const COPY = BASE_URL + "copy"
@@ -32,7 +35,7 @@ module.exports = {
     CREATE_VPN,
     DELETE_VPN,
     DOWNLOAD_VPN,
-    COPY
+    COPY, GET_STATS
 }
 
 
