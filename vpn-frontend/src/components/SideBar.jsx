@@ -7,7 +7,8 @@ export default function SideBar({ currentUser, activeTab, onTabChange, permissio
         {label: 'Home', index: 0, show: true},
         {label: 'VPN', index: 1, show: !!permissions.can_manage_vpn},
         {label: 'File Management', index: 2, show: !!permissions.can_manage_file},
-        {label: 'User Management', index: 3, show: !!permissions.can_create_users}
+        {label: 'User Management', index: 3, show: !!permissions.can_create_users},
+        {label: 'Certificate Renewal', index: 4, show: !!permissions.can_view_admin}
     ].filter(item => item.show);
 
     return (

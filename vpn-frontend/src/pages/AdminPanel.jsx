@@ -9,6 +9,7 @@ import VPNTab from "./tabs/VPNTab";
 import CopyTab from "./tabs/CopyTab";
 import SideBar from "../components/SideBar";
 import HomeTab from "./tabs/HomeTab";
+import CertificateTab from "./tabs/CertificateTab";
 
 // ── Main Panel ────────────────────────────────────────────────────
 function AdminPanelContent({permissions, currentUser, onLogout}) {
@@ -18,6 +19,7 @@ function AdminPanelContent({permissions, currentUser, onLogout}) {
         if (tab === 1 && permissions.can_manage_vpn) return <VPNTab permissions={permissions} />;
         if (tab === 2 && permissions.can_manage_file) return <CopyTab permissions={permissions} />;
         if (tab === 3 && permissions.can_create_users) return <UsersTab currentUserId={currentUser?.id} />;
+        if( tab === 4 && permissions.can_view_admin) return <CertificateTab permissions={permissions}/>
         return null;
     };
     return (

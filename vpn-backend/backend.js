@@ -26,6 +26,8 @@ db.exec(`
     )
 `);
 
+db.exec(`CREATE TABLE IF NOT EXISTS renewals (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, timestamp DATETIME, FOREIGN KEY (username) REFERENCES users(username))`);
+
 // Migrate existing table if permissions columns are missing
 const cols = db.prepare("PRAGMA table_info(users)").all().map(c => c.name);
 if (cols.includes('can_delete')) {

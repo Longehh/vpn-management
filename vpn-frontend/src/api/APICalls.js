@@ -1,5 +1,5 @@
 const {GET_USERS, CREATE_USER, DELETE_USER, LOGIN, VERIFY,
-    REFRESH, LOGOUT, GET_VPNS, DELETE_VPN, CREATE_VPN, COPY, GET_STATS
+    REFRESH, LOGOUT, GET_VPNS, DELETE_VPN, CREATE_VPN, COPY, GET_STATS, GET_RENEWALS, CERTIFICATE_RENEWAL
 } = require("./APIConstants");
 
 // Stats
@@ -94,6 +94,21 @@ async function logout() {
     })
 }
 
+// Renewals
+async function getRenewals() {
+    const res = await fetchWithRefresh(GET_RENEWALS, {
+        method: 'GET',
+    });
+    return await res.json();
+}
+
+async function renew() {
+    const res = await fetchWithRefresh(CERTIFICATE_RENEWAL, {
+        method: 'POST',
+    });
+    return await res.json();
+}
+
 module.exports = {
-    getUsers, login, verifyToken, createUser, deleteUser, logout, getVPNS, createVPN, deleteVPN, copy, getStats
+    getUsers, login, verifyToken, createUser, deleteUser, logout, getVPNS, createVPN, deleteVPN, copy, getStats, getRenewals, renew
 }

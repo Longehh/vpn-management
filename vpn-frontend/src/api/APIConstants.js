@@ -22,6 +22,9 @@ const VERIFY = AUTH + "verify"
 const CREATE_USER = AUTH + "create-user"
 const DELETE_USER = AUTH + "users/"
 
+const CERTIFICATE_RENEWAL = BASE_URL + "renew"
+const GET_RENEWALS = BASE_URL + "renewals"
+
 
 module.exports = {
     GET_USERS,
@@ -35,7 +38,7 @@ module.exports = {
     CREATE_VPN,
     DELETE_VPN,
     DOWNLOAD_VPN,
-    COPY, GET_STATS
+    COPY, GET_STATS, CERTIFICATE_RENEWAL, GET_RENEWALS
 }
 
 
