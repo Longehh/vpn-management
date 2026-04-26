@@ -3,7 +3,6 @@ import {BrowserRouter as Router, Route, Routes, useLocation} from 'react-router-
 import {Container, CssBaseline, ThemeProvider} from '@mui/material';
 import theme from './theme';
 import AdminPanel from "./pages/AdminPanel";
-import LoginPage from "./pages/LoginPage";
 
 function AppContent() {
     return (
