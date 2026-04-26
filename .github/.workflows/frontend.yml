@@ -7,14 +7,6 @@ jobs:
   deploy:
     runs-on: self-hosted
     steps:
-      - name: Check commit message for -d flag
-        id: check
-        run: |
-          if echo "${{ github.event.head_commit.message }}" | grep -qE '(^| )-d( |$)'; then
-            echo "deploy=true" >> $GITHUB_OUTPUT
-          else
-            echo "deploy=false" >> $GITHUB_OUTPUT
-          fi
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Copy build to web root
