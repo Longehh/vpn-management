@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {createVPN, deleteVPN, getRenewals, getVPNS, renew} from "../../api/APICalls";
+import {getRenewals, renew} from "../../api/APICalls";
 import {
     Box,
     Button,
